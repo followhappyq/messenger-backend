@@ -6,22 +6,22 @@ export interface IUser extends Document {
   login: string
   password: string
   confirmed: boolean
-  avatar: string
-  confirm_hash: string
-  last_seen: Date
+  avatar?: string
+  confirm_hash?: string
+  last_seen?: Date
 }
 
 const UserSchema = new Schema(
   {
     email: {
       type: String,
-      require: "E-mail adress is required",
+      require: "Email address is required",
       validate: [isEmail, "Invalid email"],
       unique: true,
     },
     login: {
       type: String,
-      required: "Login is required",
+      required: "login is required",
     },
     password: {
       type: String,
@@ -32,8 +32,11 @@ const UserSchema = new Schema(
       default: false,
     },
     avatar: String,
-    confirmed_hash: String,
-    last_seen: Date,
+    confirm_hash: String,
+    last_seen: {
+      type: Date,
+      default: new Date(),
+    },
   },
   {
     timestamps: true,
